@@ -8,9 +8,5 @@
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 476, 254 )
 physics_material_override = ExtResource( 2 )
-
-[node name="Player2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 476, 368 )
-mode = 1
-physics_material_override = ExtResource( 2 )
 gravity_scale = 0.0
+can_sleep = false
