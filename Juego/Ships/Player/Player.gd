@@ -1,12 +1,19 @@
 extends RigidBody2D
 
 
-export var potenciaMotor:int = 500
+export var potenciaMotor:int = 100
 export var potenciaRotacion:int = 280
+
+var empuje
+var direccionRotacion
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
-	pass
+	print(empuje.rotated(rotation))
+	print(rad2deg(rotation))
+	
+	apply_central_impulse(empuje.rotated(rotation))
+	apply_torque_impulse(potenciaRotacion * direccionRotacion)
 
 
 func _process(delta: float) -> void:
@@ -14,8 +21,8 @@ func _process(delta: float) -> void:
 
 
 func inputPlayer() -> void:
-	var empuje = Vector2.ZERO
-	var direccionRotacion = 0
+	empuje = Vector2.ZERO
+	direccionRotacion = 0
 	
 	
 	if Input.is_action_pressed("mover_adelante"):
@@ -24,6 +31,6 @@ func inputPlayer() -> void:
 		empuje = Vector2(-potenciaMotor, 0)
 	
 	if Input.is_action_pressed("girar_horario"):
-		direccionRotacion += potenciaRotacion
+		direccionRotacion += 1
 	elif Input.is_action_pressed("girar_antihorario"):
-		direccionRotacion -= potenciaRotacion
+		direccionRotacion -= 1

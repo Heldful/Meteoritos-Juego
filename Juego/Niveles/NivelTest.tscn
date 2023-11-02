@@ -1,12 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Juego/Ships/Player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Juego/Ships/Player/Material_fisico.tres" type="PhysicsMaterial" id=2]
 
 [node name="NivelTest" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 476, 254 )
-physics_material_override = ExtResource( 2 )
-gravity_scale = 0.0
 can_sleep = false
+potenciaMotor = 20
