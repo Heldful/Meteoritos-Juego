@@ -6,9 +6,21 @@ export var potenciaMotor:int = 100
 export var potenciaRotacion:int = 280
 
 onready var canion:Canion = $Canion
+onready var laserBeam:LaserBeam = $LaserBeam2D
 
 var empuje
 var direccionRotacion
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mouseEvent = event as InputEventMouseButton
+		if mouseEvent.button_index == BUTTON_LEFT:
+			if mouseEvent.pressed:
+				laserBeam.set_is_casting(true)
+			else:
+				laserBeam.set_is_casting(false)
+
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
