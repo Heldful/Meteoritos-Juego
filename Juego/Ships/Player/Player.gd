@@ -1,17 +1,17 @@
+class_name Player
 extends RigidBody2D
 
 
 export var potenciaMotor:int = 100
 export var potenciaRotacion:int = 280
 
+onready var canion:Canion = $Canion
+
 var empuje
 var direccionRotacion
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
-	print(empuje.rotated(rotation))
-	print(rad2deg(rotation))
-	
 	apply_central_impulse(empuje.rotated(rotation))
 	apply_torque_impulse(potenciaRotacion * direccionRotacion)
 
@@ -34,3 +34,8 @@ func inputPlayer() -> void:
 		direccionRotacion += 1
 	elif Input.is_action_pressed("girar_antihorario"):
 		direccionRotacion -= 1
+	
+	if Input.is_action_pressed("disparoPrincipal"):
+		canion.setEstaDisparando(true)
+	if Input.is_action_just_released("disparoPrincipal"):
+		canion.setEstaDisparando(false)
