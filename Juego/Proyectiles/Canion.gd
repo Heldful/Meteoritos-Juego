@@ -7,16 +7,22 @@ export var cadenciaDisparo:float = 0.8
 export var velocidadProyectil:int = 100
 export var danioProyectil:int = 1
 
+var puntosDisparo:Array = []
+
 onready var timerEnfriamiento:Timer = $TimerEnfriamiento
 onready var disparosSFX:AudioStreamPlayer2D = $DisparosSFX
 onready var estaEnfriado:bool = true
 onready var estaDisparando:bool = false setget setEstaDisparando
+onready var puedeDisparar:bool = true setget setPuedeDisparar
 
-var puntosDisparo:Array = []
 
-#setter/getter
+#setters/getters
 func setEstaDisparando(disparando: bool) -> void:
 	estaDisparando = disparando
+
+
+func setPuedeDisparar(puede: bool) -> void:
+	puedeDisparar = puede
 
 
 func _ready() -> void:
@@ -40,10 +46,11 @@ func disparar() -> void:
 	timerEnfriamiento.start()
 	for puntoDisparo in puntosDisparo:
 		var new_proyectil:Proyectil = proyectil.instance()
-		new_proyectil.crear(puntoDisparo.global_position,
-		get_owner().rotation,
-		velocidadProyectil,
-		danioProyectil
+		new_proyectil.crear(
+			puntoDisparo.global_position,
+			get_owner().rotation,
+			velocidadProyectil,
+			danioProyectil
 		)
 		Eventos.emit_signal("disparo", new_proyectil)
 		disparosSFX.play()
