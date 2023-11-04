@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Juego/Ships/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Juego/Niveles/Nivel.gd" type="Script" id=2]
 [ext_resource path="res://Juego/WorldEnvironment.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Juego/Explosiones/Explosion.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Juego/Enemigos/EnemigoDummy.tscn" type="PackedScene" id=5]
 
 [node name="NivelTest" type="Node"]
 script = ExtResource( 2 )
+explosion = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 476, 254 )
@@ -13,3 +16,6 @@ can_sleep = false
 potenciaMotor = 20
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 3 )]
+
+[node name="EnemigoDummy" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1660.13, 235.463 )
