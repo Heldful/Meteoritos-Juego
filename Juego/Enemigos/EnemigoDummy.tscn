@@ -27,6 +27,8 @@ texture = ExtResource( 2 )
 
 [node name="Canion" parent="." instance=ExtResource( 4 )]
 proyectil = ExtResource( 5 )
+cadenciaDisparo = 0.5
+velocidadProyectil = 1300
 
 [node name="PuntoIzquierdo" parent="Canion" index="0"]
 position = Vector2( 0, -33 )

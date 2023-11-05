@@ -14,6 +14,7 @@ var empuje
 var direccionRotacion
 
 onready var canion:Canion = $Canion
+onready var escudo:Escudo = $Escudo
 onready var laserBeam:LaserBeam = $LaserBeam2D
 onready var trail:Trail = $TrailPuntoInicio/Trail2D
 onready var motorSFX:Motor = $MotorSFX
@@ -56,10 +57,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("mover_atras"):
 		trail.setMaxPoints(0)
 		motorSFX.sonidoOn()
-		
+	
 	if (event.is_action_released("mover_adelante")
 	or event.is_action_released("mover_atras")):
 		motorSFX.sonidoOff()
+	
+	if (event.is_action_pressed("escudo") and 
+	not escudo.getEstaActivado()):
+		escudo.activar()
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 	if empuje != null:
