@@ -53,7 +53,7 @@ angular_damp = 4.0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1.2, 1.2, 1.2, 1 )
+modulate = Color( 1.1, 1.1, 1.1, 1 )
 rotation = 1.57079
 texture = ExtResource( 1 )
 
