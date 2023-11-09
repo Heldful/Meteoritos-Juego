@@ -49,6 +49,9 @@ z_as_relative = false
 collision_mask = 22
 physics_material_override = ExtResource( 3 )
 gravity_scale = 0.0
+contacts_reported = 2
+contact_monitor = true
+can_sleep = false
 angular_damp = 4.0
 script = ExtResource( 2 )
 
@@ -95,6 +98,10 @@ bus = "SFX"
 autoplay = "spawn"
 anims/default = SubResource( 2 )
 anims/spawn = SubResource( 3 )
+
+[node name="CamaraPlayer" type="Camera2D" parent="."]
+current = true
+[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
 [editable path="Canion"]

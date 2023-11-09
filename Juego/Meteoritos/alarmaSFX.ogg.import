@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/alarmaSFX.ogg-d7a2851dee0b60178614e1787a3b65ad.oggstr"
+
+[deps]
+
+source_file="res://Juego/Meteoritos/alarmaSFX.ogg"
+dest_files=[ "res://.import/alarmaSFX.ogg-d7a2851dee0b60178614e1787a3b65ad.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

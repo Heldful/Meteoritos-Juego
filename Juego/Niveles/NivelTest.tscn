@@ -1,21 +1,37 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Juego/Ships/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Juego/Niveles/Nivel.gd" type="Script" id=2]
 [ext_resource path="res://Juego/WorldEnvironment.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Juego/Explosiones/Explosion.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Juego/Enemigos/EnemigoDummy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Juego/Peligros/SectorDePeligro.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Juego/Meteoritos/Meteorito.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Juego/Explosiones/ExplosionMeteorito.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Juego/Meteoritos/SectorMeteoritos.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Juego/Fondos/fondoNegro.png" type="Texture" id=9]
 
 [node name="NivelTest" type="Node"]
 script = ExtResource( 2 )
+SectorMeteoritos = ExtResource( 8 )
+explosionMeteorito = ExtResource( 7 )
 explosion = ExtResource( 4 )
+meteorito = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 3225.4, -564.444 )
+scale = Vector2( 76.1357, 76.1357 )
+texture = ExtResource( 9 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 476, 254 )
-can_sleep = false
+position = Vector2( -834.434, -17.0045 )
 potenciaMotor = 20
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 3 )]
 
-[node name="EnemigoDummy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 297.298, 815.796 )
+[node name="TriggerLluviaDeMeteoritos" type="Node" parent="."]
+
+[node name="SectorDePeligro" parent="TriggerLluviaDeMeteoritos" instance=ExtResource( 5 )]
+
+[node name="CamaraNivel" type="Camera2D" parent="."]
+
+[node name="TweenCamara" type="Tween" parent="."]

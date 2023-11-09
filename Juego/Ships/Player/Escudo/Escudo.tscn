@@ -167,7 +167,7 @@ disabled = true
 
 [node name="SpriteCompleto" type="Sprite" parent="."]
 visible = false
-modulate = Color( 5.5, 4.5, 0, 0.75 )
+modulate = Color( 8.02745, 8.02745, 0, 0.74902 )
 rotation = 1.5708
 scale = Vector2( 0.933333, 0.933333 )
 texture = ExtResource( 1 )
