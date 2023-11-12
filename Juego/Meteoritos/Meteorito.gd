@@ -8,6 +8,7 @@ export var hitPointsBase:float = 10.0
 
 var hitPoints:float 
 var estaEnSector:bool setget setEstaEnSector
+var estaDestruido:bool = false
 var posSpawnOriginal:Vector2 
 var velSpawnOriginal:Vector2
 
@@ -53,7 +54,8 @@ func recibirDanio(danio) -> void:
 	hitPoints -= danio
 	meteoritoImpactadoSfx.play()
 	animacion.play("impacto")
-	if hitPoints <= 0.0:
+	if hitPoints <= 0.0 and not estaDestruido:
+		estaDestruido = true
 		destruir()
 
 
