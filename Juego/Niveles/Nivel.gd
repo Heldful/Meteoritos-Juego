@@ -18,7 +18,6 @@ onready var camaraNivel:Camera2D = $CamaraNivel
 func _ready() -> void:
 	crearContenedores()
 	conectarSeniales()
-	print("Posicion camara onready: ", $Player/CamaraPlayer.global_position)
 
 func conectarSeniales() -> void:
 	Eventos.connect("disparo", self, "_on_disparo")
@@ -47,11 +46,18 @@ func _on_disparo(proyectil:Proyectil) -> void:
 
 
 func _on_naveDestruida(posicion: Vector2, numExplosiones: int) -> void:
+	var camaraJugador:Camera2D  = $Player/CamaraPlayer
+	camaraNivel.global_position = camaraJugador.global_position
+	camaraNivel.zoom = camaraJugador.zoom
+	camaraNivel.current = true
 	for i in range(numExplosiones):
 		var newExplosion:Node2D = explosion.instance()
+		if $Player != null:
+			$Player.queue_free()
 		newExplosion.global_position = posicion
 		add_child(newExplosion)
 		yield(get_tree().create_timer(0.6), "timeout")
+	
 
 
 func on_naveEnSectorDePeligro(centroCam:Vector2, tipoPeligro:String,

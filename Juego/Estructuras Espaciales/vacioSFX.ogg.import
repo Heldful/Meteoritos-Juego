@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/vacioSFX.ogg-5111259976b1ae0a0fe6f4bd78e8fac3.oggstr"
+
+[deps]
+
+source_file="res://Juego/Estructuras Espaciales/vacioSFX.ogg"
+dest_files=[ "res://.import/vacioSFX.ogg-5111259976b1ae0a0fe6f4bd78e8fac3.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

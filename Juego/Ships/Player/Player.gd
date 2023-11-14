@@ -14,12 +14,12 @@ var empuje
 var direccionRotacion
 
 onready var canion:Canion = $Canion
-onready var escudo:Escudo = $Escudo
-onready var laserBeam:LaserBeam = $LaserBeam2D
 onready var trail:Trail = $TrailPuntoInicio/Trail2D
 onready var motorSFX:Motor = $MotorSFX
 onready var inpactoSFX: AudioStreamPlayer = $InpactoSFX
 onready var colisionador:CollisionShape2D = $CollisionShape2D
+onready var laserBeam:LaserBeam = $LaserBeam2D setget ,getBeam
+onready var escudo:Escudo = $Escudo setget ,getEscudo
 
 
 func controladorEstados(nuevoEstado: int) ->void:
@@ -36,7 +36,6 @@ func controladorEstados(nuevoEstado: int) ->void:
 			colisionador.set_deferred("disabled", true)
 			canion.setPuedeDisparar(false)
 			Eventos.emit_signal("naveDestruida", global_position, 3)
-			queue_free()
 		_:
 			print("Error")
 	estadoActual = nuevoEstado
@@ -80,6 +79,14 @@ func _process(delta: float) -> void:
 	inputPlayer()
 
 
+func getBeam() -> LaserBeam:
+	return laserBeam
+
+
+func getEscudo() -> Escudo:
+	return escudo
+
+
 func inputPlayer() -> void:
 	if not estaInputActivo():
 		return 
@@ -118,6 +125,7 @@ func recibirDanio(danio: int) -> void:
 
 
 func destruir() -> void:
+	$CollisionShape2D.set_deferred("disabled", true)
 	controladorEstados(Estado.MUERTO)
 
 

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/recargaSFX.ogg-7d08afe310610d205aa53b4e310b39f2.oggstr"
+
+[deps]
+
+source_file="res://Juego/Estructuras Espaciales/recargaSFX.ogg"
+dest_files=[ "res://.import/recargaSFX.ogg-7d08afe310610d205aa53b4e310b39f2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

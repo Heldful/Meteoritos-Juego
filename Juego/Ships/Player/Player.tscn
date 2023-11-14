@@ -103,8 +103,6 @@ anims/spawn = SubResource( 3 )
 [node name="CamaraPlayer" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 10 )
-variacionZoom = -1.0
-valorMaximoZoom = 1.0
 valorMinimoZoom = 1.5
 
 [node name="TweenZoom" type="Tween" parent="CamaraPlayer"]
