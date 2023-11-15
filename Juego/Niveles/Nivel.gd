@@ -46,15 +46,10 @@ func _on_disparo(proyectil:Proyectil) -> void:
 
 
 func _on_naveDestruida(posicion: Vector2, numExplosiones: int) -> void:
-	var camaraJugador:Camera2D  = $Player/CamaraPlayer
-	camaraNivel.global_position = camaraJugador.global_position
-	camaraNivel.zoom = camaraJugador.zoom
-	camaraNivel.current = true
+	camaraDestruccion()
 	for i in range(numExplosiones):
 		var newExplosion:Node2D = explosion.instance()
-		if $Player != null:
-			$Player.queue_free()
-		newExplosion.global_position = posicion
+		newExplosion.global_position = posicion + crearPosicionAleatoria(100.0, 100.0)
 		add_child(newExplosion)
 		yield(get_tree().create_timer(0.6), "timeout")
 	
@@ -84,15 +79,19 @@ func _on_explosionMeteorito(posExplosion: Vector2) -> void:
 
 
 func crearSectorMeteoritos(centroCamara: Vector2, numeroPeligros: int) -> void:
-	
 	meteoritosTotales = numeroPeligros
+	
 	var newSectorMeteoritos = SectorMeteoritos.instance()
+	
 	newSectorMeteoritos.crear(centroCamara, numeroPeligros)
+	
 	$Player/CamaraPlayer.setPuedeHacerZoom(false)
 	zoomPrevio = $Player/CamaraPlayer.zoom
 	camaraNivel.global_position = centroCamara
 	contenedorSectorMeteoritos.add_child(newSectorMeteoritos)
+
 	var zoomPrevioNivel = camaraNivel.zoom
+	
 	camaraNivel.zoom = zoomPrevio
 	camaraNivel.zoomSuavizado(zoomPrevioNivel.x, zoomPrevioNivel.y, 2.0)
 	transicionCamara(
@@ -137,6 +136,22 @@ func transicionCamara(
 	camaraActual.current = true
 	$TweenCamara.start()
 
+
+func camaraDestruccion() -> void:
+	var camaraJugador:Camera2D  = $Player/CamaraPlayer
+	
+	camaraNivel.global_position = camaraJugador.global_position
+	camaraNivel.zoom = camaraJugador.zoom
+	camaraNivel.current = true
+
+
+func crearPosicionAleatoria(rangoHorizontal: float,
+ rangoVertical: float) -> Vector2:
+	randomize()
+	var randomX = rand_range(-rangoHorizontal, rangoVertical)
+	var randomY = rand_range(-rangoVertical, rangoVertical)
+	
+	return Vector2(randomX, randomY)
 
 func _on_TweenCamara_tween_completed(object: Object, key: NodePath) -> void:
 	if object.name == "CamaraPlayer":
