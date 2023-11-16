@@ -15,9 +15,11 @@ onready var contenedorMeteoritos:Node
 onready var contenedorSectorMeteoritos:Node
 onready var camaraNivel:Camera2D = $CamaraNivel
 
+
 func _ready() -> void:
 	crearContenedores()
 	conectarSeniales()
+
 
 func conectarSeniales() -> void:
 	Eventos.connect("disparo", self, "_on_disparo")

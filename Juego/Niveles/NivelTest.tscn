@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Juego/Ships/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Juego/Niveles/Nivel.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=10]
 [ext_resource path="res://Juego/Niveles/CamaraJuego.gd" type="Script" id=11]
 [ext_resource path="res://Juego/Estructuras Espaciales/EstacionRecarga.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Juego/Enemigos/EnemigoInterceptor.tscn" type="PackedScene" id=13]
 
 [node name="NivelTest" type="Node"]
 script = ExtResource( 2 )
@@ -21,7 +22,7 @@ explosion = ExtResource( 4 )
 meteorito = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 71.3525, 799.147 )
+position = Vector2( -827.689, -23.7848 )
 
 [node name="TriggerLluviaDeMeteoritos" type="Node" parent="."]
 
@@ -285,4 +286,7 @@ position = Vector2( 1647.54, 1006.28 )
 texture = ExtResource( 10 )
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 3 )]
+
+[node name="EnemigoInterceptor" parent="." instance=ExtResource( 13 )]
+position = Vector2( -808.661, -461.413 )
 [connection signal="tween_completed" from="TweenCamara" to="." method="_on_TweenCamara_tween_completed"]

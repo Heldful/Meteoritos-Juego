@@ -14,9 +14,6 @@ onready var laserBeam:LaserBeam = $LaserBeam2D setget ,getBeam
 onready var escudo:Escudo = $Escudo setget ,getEscudo
 
 
-func _ready() -> void:
-	print("hola")
-
 func getBeam() -> LaserBeam:
 	return laserBeam
 
@@ -36,10 +33,28 @@ func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-		if event.is_action_pressed("disparoSecundario"):
-			laserBeam.set_is_casting(true)
-		elif event.is_action_released("disparoSecundario"):
-			laserBeam.set_is_casting(false)
+	if not estaInputActivo():
+		return 
+	
+	if event.is_action_pressed("disparoSecundario"):
+		laserBeam.set_is_casting(true)
+	if event.is_action_released("disparoSecundario"):
+		laserBeam.set_is_casting(false)
+	
+	if event.is_action_pressed("mover_adelante"):
+		trail.setMaxPoints(trailMaximo)
+		motorSFX.sonidoOn()
+	elif event.is_action_pressed("mover_atras"):
+		trail.setMaxPoints(0)
+		motorSFX.sonidoOn()
+	
+	if (event.is_action_released("mover_adelante")
+	or event.is_action_released("mover_atras")):
+		motorSFX.sonidoOff()
+	
+	if (event.is_action_pressed("escudo") and 
+	not escudo.getEstaActivado()):
+		escudo.activar()
 
 
 func inputPlayer() -> void:
