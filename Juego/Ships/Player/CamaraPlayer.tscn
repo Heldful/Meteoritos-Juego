@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Juego/Ships/Player/CamaraPlayer.gd" type="Script" id=1]
+
+[node name="CamaraPlayer" type="Camera2D"]
+current = true
+script = ExtResource( 1 )
+valorMinimoZoom = 1.5
+
+[node name="TweenZoom" type="Tween" parent="."]

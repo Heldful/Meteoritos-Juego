@@ -20,6 +20,9 @@ explosionMeteorito = ExtResource( 7 )
 explosion = ExtResource( 4 )
 meteorito = ExtResource( 6 )
 
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 71.3525, 799.147 )
+
 [node name="TriggerLluviaDeMeteoritos" type="Node" parent="."]
 
 [node name="SectorDePeligro" parent="TriggerLluviaDeMeteoritos" instance=ExtResource( 5 )]
@@ -282,8 +285,4 @@ position = Vector2( 1647.54, 1006.28 )
 texture = ExtResource( 10 )
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 3 )]
-
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( -834.434, -17.0045 )
-potenciaMotor = 20
 [connection signal="tween_completed" from="TweenCamara" to="." method="_on_TweenCamara_tween_completed"]

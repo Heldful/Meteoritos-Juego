@@ -12,7 +12,7 @@ onready var vacioSFX: AudioStreamPlayer2D = $VacioSFX
 onready var recargaSFX: AudioStreamPlayer2D = $RecargaSFX
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action("recargarBeam") or event.is_action("recargaEscudo"):
+	if event.is_action("recargarBeam") or event.is_action("recargarEscudo"):
 		alertaVacio()
 	if not puedeRecargar(event) or navePlayer == null:
 		return 
