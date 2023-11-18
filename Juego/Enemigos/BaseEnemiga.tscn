@@ -1,0 +1,179 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Juego/Estructuras Espaciales/AreaAtraccion.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Juego/Enemigos/baseEnemiga6.png" type="Texture" id=2]
+[ext_resource path="res://Juego/Enemigos/baseEnemiga7.png" type="Texture" id=3]
+[ext_resource path="res://Juego/Enemigos/baseEnemiga4.png" type="Texture" id=4]
+[ext_resource path="res://Juego/Enemigos/baseEnemiga3.png" type="Texture" id=5]
+[ext_resource path="res://Juego/Enemigos/baseEnemiga1.png" type="Texture" id=6]
+[ext_resource path="res://Juego/Enemigos/baseEnemiga2.png" type="Texture" id=7]
+[ext_resource path="res://Juego/Enemigos/BaseEnemiga.gd" type="Script" id=8]
+[ext_resource path="res://Juego/Enemigos/AreaColision.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 23.3028, 272.465 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 43.0414
+height = 40.7427
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 21.0399
+height = 34.5216
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 18.4789
+height = 35.6774
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 18.9838
+height = 85.7938
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 95.4397, 22.7803 )
+
+[sub_resource type="Animation" id=7]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 360.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[node name="BaseEnemiga" type="Node2D"]
+z_index = 1
+z_as_relative = false
+script = ExtResource( 8 )
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Sprites"]
+position = Vector2( 4, 82 )
+rotation = 3.14159
+z_index = 1
+texture = ExtResource( 6 )
+
+[node name="Sprite2" type="Sprite" parent="Sprites"]
+position = Vector2( 0, -174.653 )
+texture = ExtResource( 7 )
+
+[node name="Sprite3" type="Sprite" parent="Sprites"]
+position = Vector2( -173.497, 179.544 )
+texture = ExtResource( 5 )
+
+[node name="Sprite4" type="Sprite" parent="Sprites"]
+position = Vector2( 74.5286, -89.5493 )
+rotation = 3.14159
+z_index = 1
+texture = ExtResource( 4 )
+
+[node name="Sprite5" type="Sprite" parent="Sprites"]
+position = Vector2( 9.22395, 171.062 )
+scale = Vector2( 0.25, 0.25 )
+z_index = 2
+texture = ExtResource( 2 )
+
+[node name="Sprite8" type="Sprite" parent="Sprites"]
+position = Vector2( -0.184982, -97.7751 )
+scale = Vector2( 0.25, 0.25 )
+z_index = 2
+texture = ExtResource( 2 )
+
+[node name="Sprite6" type="Sprite" parent="Sprites"]
+position = Vector2( -34.1148, -89.187 )
+texture = ExtResource( 3 )
+
+[node name="Sprite9" type="Sprite" parent="Sprites"]
+position = Vector2( 33.8852, -89.187 )
+texture = ExtResource( 3 )
+
+[node name="Sprite7" type="Sprite" parent="Sprites"]
+position = Vector2( -74.0472, -88.9547 )
+texture = ExtResource( 4 )
+
+[node name="AreaColisionFisica" type="Area2D" parent="."]
+z_as_relative = false
+collision_layer = 32
+collision_mask = 9
+script = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaColisionFisica"]
+position = Vector2( 0, 10 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="AreaColisionFisica"]
+position = Vector2( 0, -306.201 )
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="AreaColisionFisica"]
+position = Vector2( 61.853, -89.6 )
+rotation = 1.5708
+scale = Vector2( 1.03451, 1 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="AreaColisionFisica"]
+position = Vector2( -62.7899, -88.8931 )
+rotation = 1.5708
+scale = Vector2( 1.16, 1.07692 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="AreaColisionFisica"]
+position = Vector2( 85.7937, 180.799 )
+rotation = 1.5708
+scale = Vector2( 1.24, 1 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="AreaColisionFisica"]
+position = Vector2( -119.229, 180.098 )
+shape = SubResource( 6 )
+
+[node name="AreaAtraccion" parent="." instance=ExtResource( 1 )]
+
+[node name="ImpactoSFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/default = SubResource( 7 )
+anims/rotacionAntihorario = SubResource( 8 )
+anims/rotacionHorario = SubResource( 9 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+[connection signal="body_entered" from="AreaColisionFisica" to="." method="_on_AreaColisionFisica_body_entered"]
+
+[editable path="AreaAtraccion"]

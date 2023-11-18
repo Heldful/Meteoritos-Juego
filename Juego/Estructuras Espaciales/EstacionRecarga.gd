@@ -19,7 +19,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	controlarEnergia()
 
-	
 	if event.is_action("recargarBeam"):
 		navePlayer.getBeam().controlarEnergiaBeam(radioEntregaEnergia * 5)
 	elif event.is_action("recargarEscudo"):
@@ -30,10 +29,9 @@ func _on_AreaRecarga_body_entered(body: Node) -> void:
 		navePlayer = body
 		print("entre", playerEnArea)
 	playerEnArea = true
-	body.set_gravity_scale(0.15)
+	
 
 func _on_AreaRecarga_body_exited(body: Node) -> void:
-	body.set_gravity_scale(0.0)
 	playerEnArea = false
 	print("sali", playerEnArea)
 
@@ -53,7 +51,6 @@ func puedeRecargar(event: InputEvent) -> bool:
 
 
 func controlarEnergia() -> void:
-	print("Energia restante:", energiaEstacion)
 	energiaEstacion -= radioEntregaEnergia
 	alertaVacio()
 

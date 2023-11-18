@@ -9,9 +9,9 @@ onready var tweenZoom:Tween = $TweenZoom
 
 
 func _ready() -> void:
-	print(zoom)
+
 	zoomOriginal = zoom
-	print(zoomOriginal)
+
 
 
 func setPuedeHacerZoom(valor: bool) -> void:
@@ -20,7 +20,6 @@ func setPuedeHacerZoom(valor: bool) -> void:
 
 func devolverZoomOriginal() -> void:
 	puedeHacerZoom = false
-	print(zoomOriginal)
 	zoomSuavizado(zoomOriginal.x, zoomOriginal.y, 1.5)
 
 

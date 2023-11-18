@@ -1,17 +1,15 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Juego/Estructuras Espaciales/estacionEspacial.png" type="Texture" id=1]
-[ext_resource path="res://Juego/Estructuras Espaciales/areaRecarga.png" type="Texture" id=2]
+[ext_resource path="res://Juego/Estructuras Espaciales/AreaAtraccion.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Juego/Estructuras Espaciales/recargaSFX.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Juego/Estructuras Espaciales/vacioSFX.ogg" type="AudioStream" id=4]
 [ext_resource path="res://Juego/Estructuras Espaciales/EstacionRecarga.gd" type="Script" id=5]
+[ext_resource path="res://Juego/Estructuras Espaciales/SpriteRecarga.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 13.1776
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "activado"
 length = 10.0
 loop = true
@@ -52,7 +50,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.8, 0.8 ), Vector2( 1.2, 1.2 ), Vector2( 0.8, 0.8 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "default"
 tracks/0/type = "value"
 tracks/0/path = NodePath("AreaRecarga/SpriteRecarga:modulate")
@@ -109,28 +107,14 @@ scale = Vector2( 12, 14 )
 shape = SubResource( 1 )
 one_way_collision = true
 
-[node name="AreaRecarga" type="Area2D" parent="."]
-scale = Vector2( 0.8, 0.8 )
-z_index = -1
-space_override = 1
-gravity_point = true
-gravity = 1024.0
-collision_layer = 0
+[node name="AreaRecarga" parent="." instance=ExtResource( 2 )]
 
-[node name="SpriteRecarga" type="Sprite" parent="AreaRecarga"]
-modulate = Color( 0, 2.3, 2, 0.03 )
-scale = Vector2( 85, 85 )
-texture = ExtResource( 2 )
-
-[node name="ColisionRecarga" type="CollisionShape2D" parent="AreaRecarga"]
-modulate = Color( 1, 0.164706, 0.00392157, 0.6 )
-scale = Vector2( 85, 85 )
-shape = SubResource( 2 )
+[node name="SpriteRecarga" parent="AreaRecarga" instance=ExtResource( 6 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "activado"
-anims/activado = SubResource( 3 )
-anims/default = SubResource( 4 )
+anims/activado = SubResource( 2 )
+anims/default = SubResource( 3 )
 
 [node name="VacioSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )

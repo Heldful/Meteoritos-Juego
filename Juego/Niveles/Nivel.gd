@@ -1,22 +1,25 @@
 class_name Nivel
 extends Node
 
-export var SectorMeteoritos:PackedScene = null
+export var sectorMeteoritos:PackedScene = null
+export var enemigoInterceptor:PackedScene = null
 export var explosionMeteorito:PackedScene = null
 export var explosion:PackedScene = null
 export var meteorito:PackedScene = null
 export var tiempoTransicionCamara:float = 3.0
-
 var meteoritosTotales:int = 0
+var playerActual:Player = null
 var zoomPrevio
 
 onready var contenedorProyectiles:Node
 onready var contenedorMeteoritos:Node
 onready var contenedorSectorMeteoritos:Node
+onready var contenedorEnemigos: Node
 onready var camaraNivel:Camera2D = $CamaraNivel
 
 
 func _ready() -> void:
+	playerActual = DatosJuego.getPlayerActual()
 	crearContenedores()
 	conectarSeniales()
 
@@ -24,7 +27,8 @@ func _ready() -> void:
 func conectarSeniales() -> void:
 	Eventos.connect("disparo", self, "_on_disparo")
 	Eventos.connect("naveDestruida", self, "_on_naveDestruida")
-	Eventos.connect("naveEnSectorDePeligro", self, "on_naveEnSectorDePeligro")
+	Eventos.connect("baseDestruida", self, "_on_baseDestruida")
+	Eventos.connect("naveEnSectorDePeligro", self, "_on_naveEnSectorDePeligro")
 	Eventos.connect("spawnMeteorito", self, "_on_spawnMeteorito")
 	Eventos.connect("explosionMeteorito", self, "_on_explosionMeteorito")
 
@@ -41,28 +45,35 @@ func crearContenedores() -> void:
 	contenedorSectorMeteoritos = Node.new()
 	contenedorSectorMeteoritos.name = "ContenedorSectorMeteoritos"
 	add_child(contenedorSectorMeteoritos)
+	
+	contenedorEnemigos = Node.new()
+	contenedorEnemigos.name = "ContenedorEnemigos"
+	add_child(contenedorEnemigos)
 
 
 func _on_disparo(proyectil:Proyectil) -> void:
 	contenedorProyectiles.add_child(proyectil)
 
 
-func _on_naveDestruida(posicion: Vector2, numExplosiones: int) -> void:
-	camaraDestruccion()
-	for i in range(numExplosiones):
-		var newExplosion:Node2D = explosion.instance()
-		newExplosion.global_position = posicion + crearPosicionAleatoria(100.0, 100.0)
-		add_child(newExplosion)
-		yield(get_tree().create_timer(0.6), "timeout")
-	
+func _on_naveDestruida(nave:Player, posicion: Vector2, numExplosiones: int) -> void:
+	if nave is Player:
+		camaraDestruccion()
+		
+	crearExplosion(posicion, numExplosiones, 0.6, Vector2(100, 50))
 
 
-func on_naveEnSectorDePeligro(centroCam:Vector2, tipoPeligro:String,
+func _on_baseDestruida(posicionPartes: Array) -> void:
+	for posicion in posicionPartes:
+		crearExplosion(posicion)
+		yield(get_tree().create_timer(0.5), "timeout")
+
+
+func _on_naveEnSectorDePeligro(centroCam:Vector2, tipoPeligro:String,
 numPeligros:int) -> void:
 	if tipoPeligro == "Meteorito":
 		crearSectorMeteoritos(centroCam, numPeligros)
 	elif tipoPeligro == "Enemigo":
-		pass
+		crearSectorEnemigos(numPeligros)
 
 
 func _on_spawnMeteorito(posSpawn: Vector2, dirMeteorito: Vector2,
@@ -83,7 +94,7 @@ func _on_explosionMeteorito(posExplosion: Vector2) -> void:
 func crearSectorMeteoritos(centroCamara: Vector2, numeroPeligros: int) -> void:
 	meteoritosTotales = numeroPeligros
 	
-	var newSectorMeteoritos = SectorMeteoritos.instance()
+	var newSectorMeteoritos = sectorMeteoritos.instance()
 	
 	newSectorMeteoritos.crear(centroCamara, numeroPeligros)
 	
@@ -102,7 +113,15 @@ func crearSectorMeteoritos(centroCamara: Vector2, numeroPeligros: int) -> void:
 		camaraNivel,
 		tiempoTransicionCamara
 	)
-	
+
+
+func crearSectorEnemigos(numeroEnemigos: int) -> void:
+	for _i in range(numeroEnemigos):
+		var newInterceptor: EnemigoInterceptor = enemigoInterceptor.instance()
+		var posicionSpawn:Vector2 = crearPosicionAleatoria(1000.0, 800.0)
+		newInterceptor.global_position = playerActual.global_position + posicionSpawn
+		contenedorEnemigos.add_child(newInterceptor)
+
 
 func controlarMeteoritos() -> void:
 	meteoritosTotales -= 1
@@ -118,7 +137,6 @@ func controlarMeteoritos() -> void:
 			$Player/CamaraPlayer,
 			tiempoTransicionCamara * 0.10
 		)
-		
 
 
 func transicionCamara(
@@ -139,6 +157,23 @@ func transicionCamara(
 	$TweenCamara.start()
 
 
+func crearExplosion(
+	posicion:Vector2,
+	numero: int = 1,
+	intervalo: float = 0.0,
+	rangosAleatorios:Vector2 = Vector2(0.0, 0.0)
+) -> void:
+	for _i in range(numero):
+		var newExplosion:Node2D = explosion.instance()
+		newExplosion.scale = vectorAleatorioProporcionado(0.6, 1.2)
+		newExplosion.global_position = posicion + crearPosicionAleatoria(
+			rangosAleatorios.x,
+			rangosAleatorios.y
+			)
+		add_child(newExplosion)
+		yield(get_tree().create_timer(intervalo), "timeout")
+
+
 func camaraDestruccion() -> void:
 	var camaraJugador:Camera2D  = $Player/CamaraPlayer
 	
@@ -154,6 +189,13 @@ func crearPosicionAleatoria(rangoHorizontal: float,
 	var randomY = rand_range(-rangoVertical, rangoVertical)
 	
 	return Vector2(randomX, randomY)
+
+
+func vectorAleatorioProporcionado(numeroMinimo: float, numeroMaximo: float) -> Vector2:
+	randomize()
+	var numeroAleatorio = rand_range(numeroMinimo, numeroMaximo)
+	return Vector2(numeroAleatorio, numeroAleatorio)
+
 
 func _on_TweenCamara_tween_completed(object: Object, key: NodePath) -> void:
 	if object.name == "CamaraPlayer":

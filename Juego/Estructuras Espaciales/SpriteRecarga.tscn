@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Juego/Estructuras Espaciales/areaRecarga.png" type="Texture" id=1]
+
+[node name="SpriteRecarga" type="Sprite"]
+modulate = Color( 0, 2.3, 2, 0.03 )
+scale = Vector2( 85, 85 )
+texture = ExtResource( 1 )

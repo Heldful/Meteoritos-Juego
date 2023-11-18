@@ -7,6 +7,8 @@ export var numeroPeligros:int = 10
 
 
 func _on_SectorDePeligro_body_entered(body: Node) -> void:
+	if body is EnemigoInterceptor:
+		return
 	$CollisionShape2D.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.1), "timeout")
 	enviarSenial()

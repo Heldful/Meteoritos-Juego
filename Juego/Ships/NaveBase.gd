@@ -20,21 +20,19 @@ func controladorEstados(nuevoEstado: int) ->void:
 		Estado.SPAWN:
 			colisionador.set_deferred("disabled", true)
 			canion.setPuedeDisparar(false)
-			print("spawn")
 		Estado.VIVO:
 			colisionador.set_deferred("disabled", false)
 			canion.setPuedeDisparar(true)
-			print("vivo")
 		Estado.INVENCIBLE:
 			colisionador.set_deferred("disabled", true)
 		Estado.MUERTO:
-			print("muerto")
 			colisionador.set_deferred("disabled", true)
 			canion.setPuedeDisparar(false)
-			Eventos.emit_signal("naveDestruida", global_position, 3)
+			Eventos.emit_signal("naveDestruida", self, global_position, 3)
 			queue_free()
 		_:
-			print("Error")
+			printerr("Error")
+	
 	estadoActual = nuevoEstado
 
 
@@ -56,6 +54,6 @@ func destruir() -> void:
 
 func _on_Player_body_entered(body: Node) -> void:
 	if body is Meteorito:
-		print("Nave impacta Meteorito")
 		body.destruir()
 		destruir()
+

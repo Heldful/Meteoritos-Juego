@@ -44,7 +44,6 @@ func desactivar() -> void:
 
 func controlarEnergiaEscudo(consumoEscudo: float) -> void:
 	energiaEscudo += consumoEscudo 
-	print("Energia Escudo: ", energiaEscudo)
 	
 	if energiaEscudo <= 0.0:
 		desactivar()

@@ -36,8 +36,6 @@ func crear(pos: Vector2, dir: Vector2, tamanio: float) -> void:
 	angular_velocity = (velocidadAngularBase / tamanio) * randomizarVelocidad()
 	
 	hitPoints = hitPointsBase * tamanio
-	
-	print("HitPoints: ", hitPoints)
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:

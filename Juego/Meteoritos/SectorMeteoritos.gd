@@ -35,7 +35,8 @@ func conectarSenialesDetectores() -> void:
 
 
 func on_detector_body_entered(body: Node) -> void:
-	print("Ha salido un meteorito")
+	if body is EnemigoInterceptor:
+		return
 	body.setEstaEnSector(false)
 
 

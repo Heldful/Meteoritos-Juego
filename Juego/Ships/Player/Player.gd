@@ -14,6 +14,10 @@ onready var laserBeam:LaserBeam = $LaserBeam2D setget ,getBeam
 onready var escudo:Escudo = $Escudo setget ,getEscudo
 
 
+func _ready() -> void:
+	DatosJuego.setPlayerActual(self)
+
+
 func getBeam() -> LaserBeam:
 	return laserBeam
 

@@ -104,6 +104,5 @@ func disappear() -> void:
 
 func controlarEnergiaBeam(consumoBeam: float) -> void:
 	energiaBeam += consumoBeam
-	print("Energia Beam:", energiaBeam)
 	if energiaBeam > energiaBeamOriginal:
 		energiaBeam = energiaBeamOriginal
