@@ -35,7 +35,7 @@ func conectarSenialesDetectores() -> void:
 
 
 func on_detector_body_entered(body: Node) -> void:
-	if body is EnemigoInterceptor:
+	if body != Player:
 		return
 	body.setEstaEnSector(false)
 

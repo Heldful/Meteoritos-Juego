@@ -2,6 +2,7 @@ class_name Nivel
 extends Node
 
 export var sectorMeteoritos:PackedScene = null
+export var enemigoOrbital:PackedScene = null
 export var enemigoInterceptor:PackedScene = null
 export var explosionMeteorito:PackedScene = null
 export var explosion:PackedScene = null
@@ -31,6 +32,7 @@ func conectarSeniales() -> void:
 	Eventos.connect("naveEnSectorDePeligro", self, "_on_naveEnSectorDePeligro")
 	Eventos.connect("spawnMeteorito", self, "_on_spawnMeteorito")
 	Eventos.connect("explosionMeteorito", self, "_on_explosionMeteorito")
+	Eventos.connect("spawnEnemigoOrbital", self, "_on_spawnEnemigoOrbital")
 
 
 func crearContenedores() -> void:
@@ -89,6 +91,10 @@ func _on_explosionMeteorito(posExplosion: Vector2) -> void:
 	add_child(newExplosionMeteorito)
 	
 	controlarMeteoritos()
+
+
+func _on_spawnEnemigoOrbital(orbital: EnemigoOrbital) -> void:
+	contenedorEnemigos.add_child(orbital)
 
 
 func crearSectorMeteoritos(centroCamara: Vector2, numeroPeligros: int) -> void:

@@ -24,11 +24,12 @@ explosion = ExtResource( 4 )
 meteorito = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( -827.689, -23.7848 )
+position = Vector2( -195.335, 601.842 )
 
 [node name="TriggerLluviaDeMeteoritos" type="Node" parent="."]
 
 [node name="SectorDePeligro" parent="TriggerLluviaDeMeteoritos" instance=ExtResource( 5 )]
+position = Vector2( 933.889, -520.823 )
 
 [node name="TriggerInterceptores" type="Node" parent="."]
 
@@ -280,6 +281,26 @@ script = ExtResource( 11 )
 [node name="ContenedorDebugs" type="Node" parent="."]
 
 [node name="Sprite" type="Sprite" parent="ContenedorDebugs"]
+texture = ExtResource( 10 )
+
+[node name="Sprite6" type="Sprite" parent="ContenedorDebugs"]
+position = Vector2( 67.7599, 65.9158 )
+texture = ExtResource( 10 )
+
+[node name="Sprite7" type="Sprite" parent="ContenedorDebugs"]
+position = Vector2( -1804.46, -1093.59 )
+texture = ExtResource( 10 )
+
+[node name="Sprite8" type="Sprite" parent="ContenedorDebugs"]
+position = Vector2( 68.9492, -67.2754 )
+texture = ExtResource( 10 )
+
+[node name="Sprite9" type="Sprite" parent="ContenedorDebugs"]
+position = Vector2( -63.0527, 62.3482 )
+texture = ExtResource( 10 )
+
+[node name="Sprite5" type="Sprite" parent="ContenedorDebugs"]
+position = Vector2( 942.868, -520.822 )
 texture = ExtResource( 10 )
 
 [node name="Sprite2" type="Sprite" parent="ContenedorDebugs"]

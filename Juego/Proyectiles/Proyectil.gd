@@ -23,10 +23,12 @@ func daniar(otroCuerpo: CollisionObject2D) -> void:
 
 
 func _on_Proyectil_area_entered(area: Area2D) -> void:
+	print("p entro en area")
 	daniar(area)
 
 
 func _on_Proyectil_body_entered(body: Node) -> void:
+	print("p entro en body")
 	daniar(body)
 
 

@@ -11,8 +11,9 @@ export var max_length := 1400.0
 # Base duration of the tween animation in seconds.
 export var growth_time := 0.1
 export var radioDanio:float = 15
-export var energiaBeam:float = 5
+export var energiaBeam:float = 9999
 export var radioEnergiaBeamDesgaste = -1 
+
 
 # If `true`, the laser is firing.
 # It plays appearing and disappearing animations when it's not animating.
@@ -81,7 +82,7 @@ func cast_beam(delta: float) -> void:
 		collision_particles.global_rotation = get_collision_normal().angle()
 		collision_particles.position = cast_point
 		if get_collider().has_method("recibirDanio"):
-			get_collider().recibirDanio(radioDanio * delta)
+			get_collider().recibirDanio(radioDanio* delta)
 
 	fill.points[1] = cast_point
 	beam_particles.position = cast_point * 0.5

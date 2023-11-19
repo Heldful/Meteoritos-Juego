@@ -42,6 +42,7 @@ func _ready() -> void:
 
 func recibirDanio(danio: int) -> void:
 	hitPoints -= danio
+	print("danio recibido y quedan: ", hitPoints,"HP")
 	inpactoSFX.play()
 	if hitPoints <= 0.0:
 		destruir()

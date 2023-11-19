@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Juego/Estructuras Espaciales/AreaAtraccion.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Juego/Enemigos/baseEnemiga6.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Juego/Enemigos/baseEnemiga2.png" type="Texture" id=7]
 [ext_resource path="res://Juego/Enemigos/BaseEnemiga.gd" type="Script" id=8]
 [ext_resource path="res://Juego/Enemigos/AreaColision.gd" type="Script" id=9]
+[ext_resource path="res://Juego/Enemigos/EnemigoOrbital.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 23.3028, 272.465 )
@@ -49,7 +50,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=8]
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/path = NodePath("AreaColisionFisica:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -60,11 +61,23 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 360.0, 0.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 360.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=9]
 length = 4.0
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/path = NodePath("AreaColisionFisica:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -75,13 +88,56 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0.0, 360.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "rotacionInterrumpida"
+length = 2.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("AreaColisionFisica:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 2.75 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 2.75 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 0.0 ]
+}
 
 [node name="BaseEnemiga" type="Node2D"]
 z_index = 1
 z_as_relative = false
 script = ExtResource( 8 )
+orbital = ExtResource( 10 )
 
 [node name="Sprites" type="Node2D" parent="."]
+rotation = 6.28319
 
 [node name="Sprite" type="Sprite" parent="Sprites"]
 position = Vector2( 4, 82 )
@@ -128,6 +184,7 @@ position = Vector2( -74.0472, -88.9547 )
 texture = ExtResource( 4 )
 
 [node name="AreaColisionFisica" type="Area2D" parent="."]
+rotation = 6.28319
 z_as_relative = false
 collision_layer = 32
 collision_mask = 9
@@ -172,8 +229,24 @@ shape = SubResource( 6 )
 anims/default = SubResource( 7 )
 anims/rotacionAntihorario = SubResource( 8 )
 anims/rotacionHorario = SubResource( 9 )
+anims/rotacionInterrumpida = SubResource( 10 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="PosicionesSpawn" type="Node2D" parent="."]
+
+[node name="Norte" type="Position2D" parent="PosicionesSpawn"]
+position = Vector2( 0, -500 )
+
+[node name="Sur" type="Position2D" parent="PosicionesSpawn"]
+position = Vector2( 0, 500 )
+
+[node name="Oeste" type="Position2D" parent="PosicionesSpawn"]
+position = Vector2( -500, 0 )
+
+[node name="Este" type="Position2D" parent="PosicionesSpawn"]
+position = Vector2( 500, 0 )
 [connection signal="body_entered" from="AreaColisionFisica" to="." method="_on_AreaColisionFisica_body_entered"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 
 [editable path="AreaAtraccion"]

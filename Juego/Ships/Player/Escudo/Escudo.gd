@@ -50,11 +50,13 @@ func controlarEnergiaEscudo(consumoEscudo: float) -> void:
 	elif energiaEscudo > energiaEscudoOriginal:
 		energiaEscudo = energiaEscudoOriginal
 
+
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "activandose" and estaActivado:
 		animacion.play("activado")
 		set_process((true))
 
 
-func _on_Escudo_body_entered(body: Node) -> void:
-	body.queue_free()
+func _on_Escudo_area_entered(area: Area2D) -> void:
+	area.queue_free()
+

@@ -1,7 +1,7 @@
 class_name BaseEnemiga
 extends Node2D
 
-
+export var orbital:PackedScene = null
 export var baseEnemigaHitpoints:float = 30
 var estaDestruida:bool = false
 
@@ -46,10 +46,17 @@ func elegirAnimacionAleatoria() -> String:
 	var numeroAnimaciones:int = $AnimationPlayer.get_animation_list().size() - 1
 	var indiceAnimacionAleatoria:int = randi() % numeroAnimaciones + 1
 	var listaAnimaciones:Array = $AnimationPlayer.get_animation_list()
-	print(listaAnimaciones[indiceAnimacionAleatoria])
 	return listaAnimaciones[indiceAnimacionAleatoria] 
 
 
 func _on_AreaColisionFisica_body_entered(body: Node) -> void:
 	if body.has_method("destruir"):
 		body.destruir()
+
+
+func _on_VisibilityNotifier2D_screen_entered() -> void:
+	$VisibilityNotifier2D.queue_free()
+	print($PosicionesSpawn/Norte.global_position)
+	var newEnemigoOrbital:EnemigoOrbital = orbital.instance()
+	newEnemigoOrbital.crear($PosicionesSpawn/Norte.global_position, self)
+	Eventos.emit_signal("spawnEnemigoOrbital", newEnemigoOrbital)
