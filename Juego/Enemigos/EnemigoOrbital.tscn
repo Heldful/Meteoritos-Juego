@@ -5,14 +5,13 @@
 [ext_resource path="res://Juego/Proyectiles/ProyectilEnemigo2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Juego/Enemigos/EnemigoOrbital.gd" type="Script" id=4]
 
-[sub_resource type="PhysicsMaterial" id=4]
+[sub_resource type="PhysicsMaterial" id=1]
 friction = 0.0
 bounce = 0.5
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 
-[sub_resource type="Animation" id=2]
-resource_name = "default"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
@@ -26,8 +25,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "spawn"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
@@ -44,9 +42,10 @@ tracks/0/keys = {
 [node name="EnemigoOrbital" instance=ExtResource( 2 )]
 collision_layer = 2
 collision_mask = 2147483655
-physics_material_override = SubResource( 4 )
+mode = 3
+physics_material_override = SubResource( 1 )
 script = ExtResource( 4 )
-hitPoints = 8.0
+hitPoints = 10.0
 
 [node name="Sprite" parent="." index="0"]
 rotation = -1.5708
@@ -56,7 +55,7 @@ texture = ExtResource( 1 )
 [node name="CollisionShape2D" parent="." index="1"]
 rotation = 1.5708
 scale = Vector2( 2.3, 2 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Canion" parent="." index="2"]
 proyectil = ExtResource( 3 )
@@ -71,8 +70,8 @@ position = Vector2( 38, 9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 autoplay = "spawn"
-anims/default = SubResource( 2 )
-anims/spawn = SubResource( 3 )
+anims/default = SubResource( 3 )
+anims/spawn = SubResource( 4 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
 [editable path="Canion"]

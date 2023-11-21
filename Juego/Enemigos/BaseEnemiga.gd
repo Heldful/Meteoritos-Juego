@@ -6,17 +6,17 @@ export var baseEnemigaHitpoints:float = 30
 var estaDestruida:bool = false
 
 onready var impactoSFX:AudioStreamPlayer2D = $ImpactoSFX
-#func _ready() -> void:
-#	$AnimationPlayer.play(elegirAnimacionAleatoria())
 
 
 func _process(delta: float) -> void:
-	if not $AnimationPlayer.is_playing():
-		$AnimationPlayer.play(elegirAnimacionAleatoria())
+	correrAnimacionBase()
+	deteccionCuadrante()
 
 
 func recibirDanio(danio: float) -> void:
+	#print("Recibe danio. Cantidad: ", danio)
 	baseEnemigaHitpoints -= danio
+	#print("HP restantes:", baseEnemigaHitpoints)
 	impactoSFX.play()
 	
 	if baseEnemigaHitpoints <= 0.0 and not estaDestruida:
@@ -36,9 +36,8 @@ func destruir() -> void:
 		$Sprites/Sprite8.global_position,
 		$Sprites/Sprite9.global_position
 	]
-	Eventos.emit_signal("baseDestruida", posicionesPartes)
+	Eventos.emit_signal("baseDestruida", self, posicionesPartes)
 	queue_free()
-
 
 
 func elegirAnimacionAleatoria() -> String:
@@ -49,6 +48,49 @@ func elegirAnimacionAleatoria() -> String:
 	return listaAnimaciones[indiceAnimacionAleatoria] 
 
 
+func correrAnimacionBase() -> void:
+	if not $AnimationPlayer.is_playing():
+		$AnimationPlayer.play(elegirAnimacionAleatoria())
+
+
+func deteccionCuadrante() -> Vector2:
+	var playerObjetivo:Player = DatosJuego.getPlayerActual()
+	
+	if not playerObjetivo:
+		return Vector2.ZERO
+	
+	var direccionPlayer:Vector2 = playerObjetivo.global_position - global_position
+	var anguloPlayer:float = rad2deg(direccionPlayer.angle())
+	
+	#Este
+	if abs(anguloPlayer) <= 45.0:
+		 return $PosicionesSpawn/Este.global_position
+	#Oeste
+	elif abs(anguloPlayer) > 135.0 and abs(anguloPlayer) <= 180.0:
+		return $PosicionesSpawn/Oeste.global_position
+	#Norte y sur
+	elif abs(anguloPlayer) > 45.0 and abs(anguloPlayer) <= 135.0:
+		#Sur
+		if sign(anguloPlayer) > 0:
+			return $PosicionesSpawn/Sur.global_position
+		#Norte
+		else:
+			return $PosicionesSpawn/Norte.global_position
+	
+	return $PosicionesSpawn/Norte.global_position
+
+
+func spawnearOrbital() -> void:
+	var posicionSpawn = deteccionCuadrante()
+	var newEnemigoOrbital:EnemigoOrbital = orbital.instance()
+	
+	newEnemigoOrbital.crear(
+		global_position + posicionSpawn, 
+		self
+	)
+	Eventos.emit_signal("spawnEnemigoOrbital", newEnemigoOrbital)
+
+
 func _on_AreaColisionFisica_body_entered(body: Node) -> void:
 	if body.has_method("destruir"):
 		body.destruir()
@@ -56,7 +98,5 @@ func _on_AreaColisionFisica_body_entered(body: Node) -> void:
 
 func _on_VisibilityNotifier2D_screen_entered() -> void:
 	$VisibilityNotifier2D.queue_free()
-	print($PosicionesSpawn/Norte.global_position)
-	var newEnemigoOrbital:EnemigoOrbital = orbital.instance()
-	newEnemigoOrbital.crear($PosicionesSpawn/Norte.global_position, self)
-	Eventos.emit_signal("spawnEnemigoOrbital", newEnemigoOrbital)
+	spawnearOrbital()
+

@@ -82,7 +82,10 @@ func cast_beam(delta: float) -> void:
 		collision_particles.global_rotation = get_collision_normal().angle()
 		collision_particles.position = cast_point
 		if get_collider().has_method("recibirDanio"):
-			get_collider().recibirDanio(radioDanio* delta)
+			print("Delta antes del cálculo:", delta)
+			var magnitudDanio = radioDanio * delta
+			print("Magnitud de Daño:", magnitudDanio)
+			get_collider().recibirDanio(magnitudDanio)
 
 	fill.points[1] = cast_point
 	beam_particles.position = cast_point * 0.5

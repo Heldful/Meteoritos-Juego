@@ -5,10 +5,7 @@
 [ext_resource path="res://Juego/Enemigos/interceptorShip.png" type="Texture" id=3]
 [ext_resource path="res://Juego/Enemigos/interceptorSpawn.png" type="Texture" id=4]
 [ext_resource path="res://Juego/Proyectiles/ProyectilEnemigo.tscn" type="PackedScene" id=5]
-
-[sub_resource type="PhysicsMaterial" id=1]
-friction = 0.0
-bounce = 0.5
+[ext_resource path="res://Juego/Ships/Player/Material_fisico.tres" type="PhysicsMaterial" id=6]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 17, 19 )
@@ -134,9 +131,9 @@ tracks/4/keys = {
 [node name="EnemigoInterceptor" instance=ExtResource( 1 )]
 collision_layer = 2147483650
 collision_mask = 2147483661
-physics_material_override = SubResource( 1 )
+physics_material_override = ExtResource( 6 )
 script = ExtResource( 2 )
-hitPoints = 10.0
+hitPoints = 20.0
 
 [node name="Sprite" parent="." index="0"]
 rotation = -1.5708
@@ -169,6 +166,7 @@ anims/default = SubResource( 3 )
 anims/spawn = SubResource( 4 )
 
 [node name="AreaDeteccion" type="Area2D" parent="." index="6"]
+visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDeteccion" index="0"]
@@ -176,6 +174,7 @@ scale = Vector2( 75, 75 )
 shape = SubResource( 5 )
 
 [node name="AreaDisparo" type="Area2D" parent="." index="7"]
+visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDisparo" index="0"]

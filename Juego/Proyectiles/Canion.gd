@@ -5,7 +5,7 @@ extends Node2D
 export var proyectil:PackedScene = null
 export var cadenciaDisparo:float = 0.8
 export var velocidadProyectil:int = 100
-export var danioProyectil:int = 1
+export var danioProyectil:float = 1.0
 
 var puntosDisparo:Array = []
 

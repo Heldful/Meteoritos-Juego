@@ -64,7 +64,7 @@ func _on_naveDestruida(nave:Player, posicion: Vector2, numExplosiones: int) -> v
 	crearExplosion(posicion, numExplosiones, 0.6, Vector2(100, 50))
 
 
-func _on_baseDestruida(posicionPartes: Array) -> void:
+func _on_baseDestruida(_base, posicionPartes: Array) -> void:
 	for posicion in posicionPartes:
 		crearExplosion(posicion)
 		yield(get_tree().create_timer(0.5), "timeout")

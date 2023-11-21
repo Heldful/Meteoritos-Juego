@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Juego/Ships/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Juego/Niveles/Nivel.gd" type="Script" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://Juego/Estructuras Espaciales/EstacionRecarga.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Juego/Enemigos/EnemigoInterceptor.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Juego/Enemigos/BaseEnemiga.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Juego/Enemigos/DummyRigidBody2D.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Juego/Ships/NaveDummy.tscn" type="PackedScene" id=16]
 
 [node name="NivelTest" type="Node"]
 script = ExtResource( 2 )
@@ -41,7 +43,7 @@ numeroPeligros = 1
 [node name="ContenedorEstaciones" type="Node" parent="."]
 
 [node name="EstacionRecarga" parent="ContenedorEstaciones" instance=ExtResource( 12 )]
-position = Vector2( -2065.88, 738.163 )
+position = Vector2( -2646.47, 937.342 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_base_offset = Vector2( 256, 256 )
@@ -284,7 +286,7 @@ script = ExtResource( 11 )
 texture = ExtResource( 10 )
 
 [node name="Sprite6" type="Sprite" parent="ContenedorDebugs"]
-position = Vector2( 67.7599, 65.9158 )
+position = Vector2( -1313.78, -595.189 )
 texture = ExtResource( 10 )
 
 [node name="Sprite7" type="Sprite" parent="ContenedorDebugs"]
@@ -292,11 +294,11 @@ position = Vector2( -1804.46, -1093.59 )
 texture = ExtResource( 10 )
 
 [node name="Sprite8" type="Sprite" parent="ContenedorDebugs"]
-position = Vector2( 68.9492, -67.2754 )
+position = Vector2( -2325.44, -597.007 )
 texture = ExtResource( 10 )
 
 [node name="Sprite9" type="Sprite" parent="ContenedorDebugs"]
-position = Vector2( -63.0527, 62.3482 )
+position = Vector2( -1813.29, -90.2145 )
 texture = ExtResource( 10 )
 
 [node name="Sprite5" type="Sprite" parent="ContenedorDebugs"]
@@ -319,4 +321,13 @@ texture = ExtResource( 10 )
 
 [node name="BaseEnemiga" parent="." instance=ExtResource( 14 )]
 position = Vector2( -1811.6, -588.898 )
+
+[node name="BaseEnemiga2" parent="." instance=ExtResource( 14 )]
+position = Vector2( -3604.21, -605.849 )
+
+[node name="DummyRigidBody2D" parent="." instance=ExtResource( 15 )]
+position = Vector2( -432.488, 1318.82 )
+
+[node name="NaveDummy" parent="." instance=ExtResource( 16 )]
+position = Vector2( -124, 1240 )
 [connection signal="tween_completed" from="TweenCamara" to="." method="_on_TweenCamara_tween_completed"]

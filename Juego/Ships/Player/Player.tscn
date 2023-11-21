@@ -18,8 +18,6 @@ z_index = 50
 collision_layer = 1
 collision_mask = 2147483670
 physics_material_override = ExtResource( 3 )
-contacts_reported = 2
-contact_monitor = true
 can_sleep = false
 linear_damp = 1.5
 angular_damp = 4.5
@@ -37,7 +35,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="Canion" parent="." index="2"]
-danioProyectil = 2
+danioProyectil = 2.0
 
 [node name="PuntoIzquierdo" parent="Canion" index="0"]
 position = Vector2( 0, -30 )
@@ -58,7 +56,8 @@ position = Vector2( -11.1244, 0 )
 
 [node name="LaserBeam2D" parent="." index="9" instance=ExtResource( 5 )]
 position = Vector2( 42, 0 )
-radioDanio = 30.0
+radioDanio = 15.0
+energiaBeam = 5.0
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
 [editable path="Canion"]
