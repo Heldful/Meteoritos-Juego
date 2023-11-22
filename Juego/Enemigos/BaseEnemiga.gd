@@ -1,16 +1,23 @@
 class_name BaseEnemiga
 extends Node2D
 
-export var orbital:PackedScene = null
 export var baseEnemigaHitpoints:float = 30
+export var orbital:PackedScene = null
+export var numeroOrbitales:int = 10
+export var intervaloSpawn:float = 0.8
 var estaDestruida:bool = false
+var posicionSpawn:Vector2
 
 onready var impactoSFX:AudioStreamPlayer2D = $ImpactoSFX
+onready var timerSpawner:Timer = $TimerSpawnOrbitales
+
+
+func _ready() -> void:
+	timerSpawner.wait_time = intervaloSpawn
 
 
 func _process(delta: float) -> void:
 	correrAnimacionBase()
-	deteccionCuadrante()
 
 
 func recibirDanio(danio: float) -> void:
@@ -64,29 +71,37 @@ func deteccionCuadrante() -> Vector2:
 	
 	#Este
 	if abs(anguloPlayer) <= 45.0:
-		 return $PosicionesSpawn/Este.global_position
+		$OrbitalesRuta.rotation_degrees = 180.0
+		return $PosicionesSpawn/Este.global_position
 	#Oeste
 	elif abs(anguloPlayer) > 135.0 and abs(anguloPlayer) <= 180.0:
+		$OrbitalesRuta.rotation_degrees = 0.0
 		return $PosicionesSpawn/Oeste.global_position
 	#Norte y sur
 	elif abs(anguloPlayer) > 45.0 and abs(anguloPlayer) <= 135.0:
 		#Sur
 		if sign(anguloPlayer) > 0:
+			$OrbitalesRuta.rotation_degrees = 270.0
 			return $PosicionesSpawn/Sur.global_position
 		#Norte
 		else:
+			$OrbitalesRuta.rotation_degrees = 90.0
 			return $PosicionesSpawn/Norte.global_position
 	
 	return $PosicionesSpawn/Norte.global_position
 
 
 func spawnearOrbital() -> void:
-	var posicionSpawn = deteccionCuadrante()
+	numeroOrbitales -= 1
+	
+	$OrbitalesRuta.global_position = global_position
+	
 	var newEnemigoOrbital:EnemigoOrbital = orbital.instance()
 	
 	newEnemigoOrbital.crear(
 		global_position + posicionSpawn, 
-		self
+		self,
+		$OrbitalesRuta
 	)
 	Eventos.emit_signal("spawnEnemigoOrbital", newEnemigoOrbital)
 
@@ -98,5 +113,14 @@ func _on_AreaColisionFisica_body_entered(body: Node) -> void:
 
 func _on_VisibilityNotifier2D_screen_entered() -> void:
 	$VisibilityNotifier2D.queue_free()
+	posicionSpawn = deteccionCuadrante()
+	deteccionCuadrante()
 	spawnearOrbital()
+	timerSpawner.start()
 
+
+func _on_TimerSpawnOrbitales_timeout() -> void:
+	if numeroOrbitales == 0:
+		timerSpawner.stop()
+		return
+	spawnearOrbital()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Juego/Estructuras Espaciales/AreaAtraccion.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Juego/Enemigos/baseEnemiga6.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Juego/Enemigos/AreaColision.gd" type="Script" id=9]
 [ext_resource path="res://Juego/Enemigos/EnemigoOrbital.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Juego/Enemigos/PosicionesSpawn.gd" type="Script" id=11]
+[ext_resource path="res://Juego/Enemigos/OrbitalesRuta.gd" type="Script" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 23.3028, 272.465 )
@@ -131,15 +132,21 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0, 0.0 ]
 }
 
+[sub_resource type="Curve2D" id=11]
+_data = {
+"points": PoolVector2Array( 3.7755, 26.4285, -3.7755, -26.4285, -890.096, -2.87073, -135.918, 151.02, 135.918, -151.02, -723.695, -430.54, -154.795, 83.0609, 154.795, -83.0609, -346.146, -679.723, -222.754, 18.8775, 222.754, -18.8775, 1.71973, -885.865, -86.8364, -101.938, 86.8364, 101.938, 436.229, -760.007, -98.1629, -200.101, 98.1629, 200.101, 593.953, -370.132, -30.204, -124.591, 30.204, 124.591, 867.741, -4.85986, 109.489, -143.469, -109.489, 143.469, 741.883, 429.649, 169.897, -56.6325, -169.897, 56.6325, 326.277, 651.547, 173.673, -52.857, -173.673, 52.857, -6.71362, 872.667, 117.04, 75.5099, -117.04, -75.5099, -435.323, 758.482, 90.6119, 162.346, -90.6119, -162.346, -651.661, 385.21, 16.026, 277.449, -16.026, -277.449, -890.096, -2.87073 )
+}
+
 [node name="BaseEnemiga" type="Node2D"]
 z_index = 1
 z_as_relative = false
 script = ExtResource( 8 )
-orbital = ExtResource( 10 )
 baseEnemigaHitpoints = 50.0
+orbital = ExtResource( 10 )
+numeroOrbitales = 12
+intervaloSpawn = 1.125
 
 [node name="Sprites" type="Node2D" parent="."]
-rotation = 6.28319
 
 [node name="Sprite" type="Sprite" parent="Sprites"]
 position = Vector2( 4, 82 )
@@ -188,8 +195,9 @@ texture = ExtResource( 4 )
 [node name="AreaColisionFisica" type="Area2D" parent="."]
 rotation = 6.28319
 z_as_relative = false
+priority = 2.0
 collision_layer = 32
-collision_mask = 9
+collision_mask = 11
 script = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaColisionFisica"]
@@ -249,7 +257,15 @@ position = Vector2( -500, 0 )
 
 [node name="Este" type="Position2D" parent="PosicionesSpawn"]
 position = Vector2( 500, 0 )
+
+[node name="OrbitalesRuta" type="Path2D" parent="."]
+scale = Vector2( 0.75, 0.75 )
+curve = SubResource( 11 )
+script = ExtResource( 12 )
+
+[node name="TimerSpawnOrbitales" type="Timer" parent="."]
 [connection signal="body_entered" from="AreaColisionFisica" to="." method="_on_AreaColisionFisica_body_entered"]
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="timeout" from="TimerSpawnOrbitales" to="." method="_on_TimerSpawnOrbitales_timeout"]
 
 [editable path="AreaAtraccion"]
