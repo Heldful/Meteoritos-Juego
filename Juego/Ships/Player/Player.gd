@@ -90,6 +90,13 @@ func estaInputActivo() -> bool:
 	return true
 
 
+func desactivarControles() -> void:
+	controladorEstados(Estado.SPAWN)
+	empuje = Vector2.ZERO
+	motorSFX.sonidoOff()
+	laserBeam.set_is_casting(false)
+
+
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "spawn":
 		controladorEstados(Estado.VIVO)

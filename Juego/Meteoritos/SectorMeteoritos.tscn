@@ -136,7 +136,6 @@ tracks/7/keys = {
 [node name="SectorMeteoritos" type="Node2D"]
 position = Vector2( 966.424, 539.275 )
 script = ExtResource( 2 )
-intervaloSpawn = 1.5
 
 [node name="BorderNavePlayer" type="Node2D" parent="."]
 

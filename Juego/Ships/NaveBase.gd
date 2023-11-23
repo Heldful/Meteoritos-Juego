@@ -26,7 +26,7 @@ func controladorEstados(nuevoEstado: int) ->void:
 		Estado.MUERTO:
 			colisionador.set_deferred("disabled", true)
 			canion.setPuedeDisparar(false)
-			Eventos.emit_signal("naveDestruida", self, global_position, 3)
+			Eventos.emit_signal("naveDestruida", self, global_position, 1)
 			queue_free()
 		_:
 			printerr("Error")
@@ -39,7 +39,7 @@ func _ready() -> void:
 
 
 func recibirDanio(danio: float) -> void:
-	print("Danio recibido: ", danio)
+	#print("Danio recibido: ", danio)
 	hitPoints -= danio
 	print("Quedan: ", hitPoints, " HP")
 	$InpactoSFX.play()

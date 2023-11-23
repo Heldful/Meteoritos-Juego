@@ -67,7 +67,6 @@ func set_is_casting(cast: bool) -> void:
 # collision point, whichever is closest.
 func cast_beam(delta: float) -> void:
 	if energiaBeam <= 0:
-		print("Alerta. Sin energía")
 		set_is_casting(false)
 	
 	controlarEnergiaBeam(radioEnergiaBeamDesgaste * delta)
@@ -82,9 +81,7 @@ func cast_beam(delta: float) -> void:
 		collision_particles.global_rotation = get_collision_normal().angle()
 		collision_particles.position = cast_point
 		if get_collider().has_method("recibirDanio"):
-			print("Delta antes del cálculo:", delta)
 			var magnitudDanio = radioDanio * delta
-			print("Magnitud de Daño:", magnitudDanio)
 			get_collider().recibirDanio(magnitudDanio)
 
 	fill.points[1] = cast_point

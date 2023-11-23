@@ -4,6 +4,7 @@ extends NaveBase
 
 var playerObjetivo: Player = null
 var playerDireccion:Vector2
+var frameActual:int = 0
 
 
 func _ready() -> void:
@@ -14,7 +15,9 @@ func _physics_process(delta: float) -> void:
 	if playerObjetivo == null:
 		canion.setEstaDisparando(false)
 		return
-	rotarHaciaPlayer()
+	frameActual += 1
+	if frameActual % 3 == 0:
+	 rotarHaciaPlayer()
 
 
 func rotarHaciaPlayer() -> void:

@@ -35,7 +35,7 @@ func conectarSenialesDetectores() -> void:
 
 
 func on_detector_body_entered(body: Node) -> void:
-	if body != Player:
+	if body == NaveBase:
 		return
 	body.setEstaEnSector(false)
 

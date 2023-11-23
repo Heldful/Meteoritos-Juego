@@ -31,7 +31,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if estaDisparando and estaEnfriado:
+	if estaDisparando and estaEnfriado and puedeDisparar:
 		disparar()
 
 

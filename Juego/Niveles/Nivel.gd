@@ -1,6 +1,7 @@
 class_name Nivel
 extends Node
 
+export var releMasa:PackedScene = null
 export var sectorMeteoritos:PackedScene = null
 export var enemigoOrbital:PackedScene = null
 export var enemigoInterceptor:PackedScene = null
@@ -10,6 +11,7 @@ export var meteorito:PackedScene = null
 export var tiempoTransicionCamara:float = 3.0
 var meteoritosTotales:int = 0
 var playerActual:Player = null
+var numeroBasesEnemigas:int = 0
 var zoomPrevio
 
 onready var contenedorProyectiles:Node
@@ -20,7 +22,9 @@ onready var camaraNivel:Camera2D = $CamaraNivel
 
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	playerActual = DatosJuego.getPlayerActual()
+	numeroBasesEnemigas = contabilizarBasesEnemigas()
 	crearContenedores()
 	conectarSeniales()
 
@@ -60,7 +64,7 @@ func _on_disparo(proyectil:Proyectil) -> void:
 func _on_naveDestruida(nave:Player, posicion: Vector2, numExplosiones: int) -> void:
 	if nave is Player:
 		camaraDestruccion()
-		
+	
 	crearExplosion(posicion, numExplosiones, 0.6, Vector2(100, 50))
 
 
@@ -68,6 +72,11 @@ func _on_baseDestruida(_base, posicionPartes: Array) -> void:
 	for posicion in posicionPartes:
 		crearExplosion(posicion)
 		yield(get_tree().create_timer(0.5), "timeout")
+	
+	numeroBasesEnemigas -= 1
+	print("bases restantes: ", numeroBasesEnemigas)
+	if numeroBasesEnemigas == 0:
+		crearReleMasa()
 
 
 func _on_naveEnSectorDePeligro(centroCam:Vector2, tipoPeligro:String,
@@ -129,10 +138,23 @@ func crearSectorEnemigos(numeroEnemigos: int) -> void:
 		contenedorEnemigos.add_child(newInterceptor)
 
 
+func crearReleMasa() -> void:
+	var newReleMasa:ReleMasa = releMasa.instance()
+	var posicionAleatoria = crearPosicionAleatoria(400.0, 200.0)
+	var margen:Vector2 = Vector2(600.0, 600.0)
+	
+	if posicionAleatoria.x < 0:
+		margen.x *= -1
+	if posicionAleatoria.y < 0:
+		margen.y *= -1
+	
+	newReleMasa.global_position = playerActual.global_position + (margen + posicionAleatoria)
+	add_child(newReleMasa)
+
+
 func controlarMeteoritos() -> void:
 	meteoritosTotales -= 1
 	
-
 	if meteoritosTotales == 0:
 		contenedorSectorMeteoritos.get_child(0).queue_free()
 		$Player/CamaraPlayer.setPuedeHacerZoom(true)
@@ -203,7 +225,10 @@ func vectorAleatorioProporcionado(numeroMinimo: float, numeroMaximo: float) -> V
 	return Vector2(numeroAleatorio, numeroAleatorio)
 
 
+func contabilizarBasesEnemigas() -> int:
+	return $ContenedorBasesEnemigas.get_child_count()
+
+
 func _on_TweenCamara_tween_completed(object: Object, key: NodePath) -> void:
 	if object.name == "CamaraPlayer":
 		object.global_position = $Player.global_position
-
