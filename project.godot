@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "AreaRecarga",
+"language": "GDScript",
+"path": "res://Juego/Estructuras Espaciales/AreaAtraccion.gd"
+}, {
 "base": "Node2D",
 "class": "BaseEnemiga",
 "language": "GDScript",
@@ -28,6 +33,16 @@ _global_script_classes=[ {
 "class": "Canion",
 "language": "GDScript",
 "path": "res://Juego/Proyectiles/Canion.gd"
+}, {
+"base": "NinePatchRect",
+"class": "ContenedorInformacion",
+"language": "GDScript",
+"path": "res://Juego/UI/HUD/ContenedorInformacion.gd"
+}, {
+"base": "ContenedorInformacion",
+"class": "ContenedorInformacionEnergia",
+"language": "GDScript",
+"path": "res://Juego/UI/HUD/ContenedorInformacionEnergia.gd"
 }, {
 "base": "Node2D",
 "class": "Dummy",
@@ -63,6 +78,11 @@ _global_script_classes=[ {
 "class": "ExplosionMeteorito",
 "language": "GDScript",
 "path": "res://Juego/Explosiones/ExplosionMeteorito.gd"
+}, {
+"base": "CanvasLayer",
+"class": "HUD",
+"language": "GDScript",
+"path": "res://Juego/UI/HUD/HUD.gd"
 }, {
 "base": "RayCast2D",
 "class": "LaserBeam",
@@ -130,10 +150,13 @@ _global_script_classes=[ {
 "path": "res://Juego/Ships/Player/Trail/Trail2D.gd"
 } ]
 _global_script_class_icons={
+"AreaRecarga": "",
 "BaseEnemiga": "",
 "CamaraJuego": "",
 "CamaraPlayer": "",
 "Canion": "",
+"ContenedorInformacion": "",
+"ContenedorInformacionEnergia": "",
 "Dummy": "",
 "EnemigoBase": "",
 "EnemigoInterceptor": "",
@@ -141,6 +164,7 @@ _global_script_class_icons={
 "Escudo": "",
 "EstacionRecarga": "",
 "ExplosionMeteorito": "",
+"HUD": "",
 "LaserBeam": "",
 "Meteorito": "",
 "MeteoritoSpawner": "",

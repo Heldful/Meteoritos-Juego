@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Juego/UI/HUD/ContenedorInformacion.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Juego/UI/HUD/ContenedorInformacionEnergia.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.44, 0.93, 100, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="ContenedorInformacionEnergia" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 1 )
+script = ExtResource( 2 )
+
+[node name="Label" parent="." index="1"]
+anchor_top = 0.0
+anchor_bottom = 0.0
+margin_left = -122.0
+margin_top = 10.0
+margin_right = 122.0
+margin_bottom = 37.0
+text = "Energia laser"
+
+[node name="ProgressBar" type="ProgressBar" parent="." index="3"]
+modulate = Color( 1, 1, 1, 0.686275 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = -50.0
+margin_right = 150.0
+margin_bottom = -20.0
+mouse_filter = 2
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

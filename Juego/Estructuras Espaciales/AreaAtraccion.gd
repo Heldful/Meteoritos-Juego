@@ -1,3 +1,4 @@
+class_name AreaRecarga 
 extends Area2D
 
 
