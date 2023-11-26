@@ -9,6 +9,7 @@ var frameActual:int = 0
 
 func _ready() -> void:
 	playerObjetivo = DatosJuego.getPlayerActual()
+	Eventos.connect("naveDestruida", self, "_on_naveDestruida")
 
 
 func _physics_process(delta: float) -> void:
@@ -29,6 +30,13 @@ func rotarHaciaPlayer() -> void:
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "spawn":
 		controladorEstados(Estado.VIVO)
+
+
+func _on_naveDestruida(nave: NaveBase, _posicion, _explosiones) -> void:
+	if nave is Player:
+		playerObjetivo = null
+	if nave.is_in_group("minimapa"):
+		Eventos.emit_signal("minimapaObjetoDestruido", nave)
 
 
 func _on_Player_body_entered(body: Node) -> void:

@@ -10,10 +10,6 @@ onready var textoContenedor:Label = $Label
 onready var autoOcultarTimer:Timer = $AutoOcultarTimer
 
 
-func _process(delta: float) -> void:
-	print(estaActivo)
-
-
 func set_autoOcultar(ocultar) -> void:
 	autoOcultar = ocultar
 

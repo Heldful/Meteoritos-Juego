@@ -10,7 +10,6 @@ bg_color = Color( 0.44, 0.93, 100, 1 )
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="ContenedorInformacionEnergia" instance=ExtResource( 1 )]
-modulate = Color( 1, 1, 1, 1 )
 script = ExtResource( 2 )
 
 [node name="Label" parent="." index="1"]

@@ -11,6 +11,7 @@ var estadoActual:int = Estado.SPAWN
 onready var canion:Canion = $Canion
 onready var inpactoSFX: AudioStreamPlayer = $InpactoSFX
 onready var colisionador:CollisionShape2D = $CollisionShape2D
+onready var barraSalud:BarraSalud = $BarraSalud
 
 
 func controladorEstados(nuevoEstado: int) ->void:
@@ -35,13 +36,14 @@ func controladorEstados(nuevoEstado: int) ->void:
 
 
 func _ready() -> void:
+	barraSalud.max_value = hitPoints
+	barraSalud.value = hitPoints
 	controladorEstados(estadoActual)
 
 
 func recibirDanio(danio: float) -> void:
-	#print("Danio recibido: ", danio)
 	hitPoints -= danio
-	print("Quedan: ", hitPoints, " HP")
+	barraSalud.controlarBarra(hitPoints, true)
 	$InpactoSFX.play()
 	if hitPoints <= 0.0:
 		destruir()

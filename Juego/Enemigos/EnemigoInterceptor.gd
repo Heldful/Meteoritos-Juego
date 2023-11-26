@@ -9,6 +9,10 @@ var estadoAIActual: int = EstadoAI.IDDLE
 var potenciaEnemigoActual:float = 0.0
 
 
+func _ready() -> void:
+	Eventos.emit_signal("minimapaObjetoCreado")
+
+
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 	linear_velocity += playerDireccion.normalized() * potenciaEnemigoActual * state.get_step()
 	

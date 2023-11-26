@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.30492, 0.586914, 0.507603, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+[node name="BarraSalud" type="ProgressBar"]
+margin_right = 4.0
+margin_bottom = 14.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

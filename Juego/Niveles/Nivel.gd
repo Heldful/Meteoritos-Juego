@@ -96,6 +96,9 @@ func crearSectorEnemigos(numeroEnemigos: int) -> void:
 
 
 func crearReleMasa() -> void:
+	if playerActual == null:
+		return
+	
 	var newReleMasa:ReleMasa = releMasa.instance()
 	var posicionAleatoria = crearPosicionAleatoria(400.0, 200.0)
 	var margen:Vector2 = Vector2(600.0, 600.0)
@@ -213,7 +216,7 @@ func _on_naveDestruida(nave:Player, posicion: Vector2, numExplosiones: int) -> v
 		get_tree().call_group("contenedorInfo", "ocultar") 
 	
 	crearExplosion(posicion, numExplosiones, 0.6, Vector2(100, 50))
-
+	
 
 func _on_baseDestruida(_base, posicionPartes: Array) -> void:
 	for posicion in posicionPartes:

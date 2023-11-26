@@ -43,6 +43,7 @@ func destruir() -> void:
 		$Sprites/Sprite8.global_position,
 		$Sprites/Sprite9.global_position
 	]
+	Eventos.emit_signal("minimapaObjetoDestruido", self)
 	Eventos.emit_signal("baseDestruida", self, posicionesPartes)
 	queue_free()
 

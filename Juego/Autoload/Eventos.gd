@@ -20,3 +20,6 @@ signal actualizarEnergiaLaser(energiaMaxima, energiaActual)
 signal ocultarInfoEnergiaLaser()
 signal actualizarEnergiaEscudo(energiaMaxima, energiaActual)
 signal ocultarInfoEnergiaEscudo()
+
+signal minimapaObjetoCreado()
+signal minimapaObjetoDestruido(objeto)
