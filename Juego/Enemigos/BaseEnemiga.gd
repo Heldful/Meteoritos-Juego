@@ -10,9 +10,11 @@ var posicionSpawn:Vector2
 
 onready var impactoSFX:AudioStreamPlayer2D = $ImpactoSFX
 onready var timerSpawner:Timer = $TimerSpawnOrbitales
+onready var barraSalud:BarraSalud = $BarraSalud
 
 
 func _ready() -> void:
+	barraSalud.set_valores(baseEnemigaHitpoints)
 	timerSpawner.wait_time = intervaloSpawn
 
 
@@ -21,14 +23,13 @@ func _process(delta: float) -> void:
 
 
 func recibirDanio(danio: float) -> void:
-	#print("Recibe danio. Cantidad: ", danio)
 	baseEnemigaHitpoints -= danio
-	#print("HP restantes:", baseEnemigaHitpoints)
 	impactoSFX.play()
 	
 	if baseEnemigaHitpoints <= 0.0 and not estaDestruida:
 		destruir()
 		estaDestruida = true
+	barraSalud.set_hitpointsActual(baseEnemigaHitpoints)
 
 
 func destruir() -> void:

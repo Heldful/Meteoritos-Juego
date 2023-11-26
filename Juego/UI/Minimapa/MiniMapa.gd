@@ -117,7 +117,7 @@ func _on_nivelIniciado() -> void:
 
 
 func _on_naveDestruida(nave: NaveBase, _posicion, _explosiones) -> void:
-	set_estaVisible(false)
+	#set_estaVisible(false)
 	if nave is Player:
 		player = null
 

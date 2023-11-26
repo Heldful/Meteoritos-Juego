@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/UI.png-5fa4c43e0ecda2937664dd6bef57e729.stex"
+path="res://.import/UI.png-49b699715362e6192630ae8e42fc5eeb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Juego/UI/UI.png"
-dest_files=[ "res://.import/UI.png-5fa4c43e0ecda2937664dd6bef57e729.stex" ]
+source_file="res://Juego/UI/HUD/UI.png"
+dest_files=[ "res://.import/UI.png-49b699715362e6192630ae8e42fc5eeb.stex" ]
 
 [params]
 

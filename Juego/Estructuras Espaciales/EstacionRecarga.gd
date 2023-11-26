@@ -1,13 +1,21 @@
 class_name EstacionRecarga
 extends Node2D
 
-export var energiaEstacion:float = 8
-export var radioEntregaEnergia:float = 0.1
+
+export var energiaEstacion:float = 10
+export var radioEntregaEnergia:float = 0.05
 var navePlayer:Player = null
 var playerEnArea:bool = false
 
 onready var vacioSFX: AudioStreamPlayer2D = $VacioSFX
 onready var recargaSFX: AudioStreamPlayer2D = $RecargaSFX
+onready var barraEnergia: ProgressBar = $BarraEnergia
+
+
+func _ready() -> void:
+	barraEnergia.max_value = energiaEstacion
+	barraEnergia.value = energiaEstacion
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("recargarBeam") or event.is_action("recargarEscudo"):
@@ -18,9 +26,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	controlarEnergia()
 
 	if event.is_action("recargarBeam"):
-		navePlayer.getBeam().controlarEnergiaBeam(radioEntregaEnergia * 5)
+		navePlayer.getBeam().controlarEnergiaBeam(radioEntregaEnergia * 2.5)
 	elif event.is_action("recargarEscudo"):
-		navePlayer.getEscudo().controlarEnergiaEscudo(radioEntregaEnergia * 5)
+		navePlayer.getEscudo().controlarEnergiaEscudo(radioEntregaEnergia * 2.5)
 	
 	if event.is_action_released("recargarBeam"):
 		Eventos.emit_signal("actualizarEnergiaLaser")
@@ -57,6 +65,7 @@ func puedeRecargar(event: InputEvent) -> bool:
 
 func controlarEnergia() -> void:
 	energiaEstacion -= radioEntregaEnergia
+	barraEnergia.value = energiaEstacion
 	alertaVacio()
 
 	

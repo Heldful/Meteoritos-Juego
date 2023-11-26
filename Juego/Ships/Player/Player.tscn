@@ -64,7 +64,6 @@ margin_top = -57.5
 margin_right = 45.0
 margin_bottom = -42.5
 rect_rotation = 90.0
-value = 50.0
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
 [editable path="Canion"]
