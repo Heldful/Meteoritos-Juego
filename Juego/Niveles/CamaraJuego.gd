@@ -13,7 +13,6 @@ func _ready() -> void:
 	zoomOriginal = zoom
 
 
-
 func setPuedeHacerZoom(valor: bool) -> void:
 	puedeHacerZoom = valor
 

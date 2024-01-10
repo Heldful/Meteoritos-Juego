@@ -1,6 +1,9 @@
 class_name Nivel
 extends Node
 
+
+export var musicaNivel: AudioStream = null
+export var musicaCombate: AudioStream = null
 export var tiempoLimite:int = 10
 export var releMasa:PackedScene = null
 export var sectorMeteoritos:PackedScene = null
@@ -23,8 +26,8 @@ onready var camaraNivel:Camera2D = $CamaraNivel
 onready var actualizarTimer:Timer = $ActualizadorTimer
 
 
-
 func _ready() -> void:
+#	iniciarMusica()
 	actualizarTimer.start()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	playerActual = DatosJuego.getPlayerActual()
@@ -202,6 +205,11 @@ func destruirNivel() -> void:
 		Vector2(10,20)
 	)
 	playerActual.destruir()
+
+
+#func iniciarMusica() -> void:
+#	MusicaJuego.set_streams(musicaNivel, musicaCombate)
+#	MusicaJuego.play_musicaNivel()
 
 
 func _on_disparo(proyectil:Proyectil) -> void:
